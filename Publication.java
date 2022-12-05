@@ -178,6 +178,7 @@ class Mag extends Publication {
 
 }
 
+
 //OUTPUT
 
 //1. Add Book
