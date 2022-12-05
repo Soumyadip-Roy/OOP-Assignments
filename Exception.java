@@ -1,103 +1,113 @@
-import java.util.*;
-
-class Data{
-	int num1=0;
-	int num2=0;
-	int isSet = 0;
-	void setData(int a,int b){
-		num1 = a;
-		num2 = b;
-		isSet = 1;
-	}
-}
-
-
-public class Exception {
-
+	import java.util.*;
+	
+	public class Exception {
 		
-	public static void main(String a[]) {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Enter the size of the array : ");
-		int n = sc.nextInt();
-		Data arr[] = new Data[n];
-		Data x = new Data();
-		
-		int cnd = 1;
-		while(cnd==1){
+		public static void main(String a[]) {
+			Scanner sc = new Scanner(System.in);
+			int error = 0;
 			
-			System.out.print("\n1 - Enter data at index \n2 - Get division \n");
-			System.out.print("Enter Your choice : ");
-			int j;j=sc.nextInt();
-			switch(j) {
-				case 1:
-					//1
-					try {
-						int p, q ;
+			do {
+				//1.1
+				try {
+					System.out.print("Enter the size of the array : ");
+					String s1 = sc.next() ;
+		            int n = Integer.parseInt(s1);
+		            if(n==0)n=-1;
 		            
-		                System.out.print("\nEnter first number : ") ;
-	                    String s1 = sc.next() ;
-	                    p = Integer.parseInt(s1) ;
-
-	                    System.out.print("Enter second number : ") ;
-	                    String s2 = sc.next() ;
-	                    q = Integer.parseInt(s2) ;
-	                    
-	                    x.setData(p,q);
-	                    
-	                    //1.1
-						try { 
-							System.out.print("Enter index : ");
-							int in = sc.nextInt();
-							arr[in]=x;
-							System.out.println("Data set at index "+in+"\n") ;
+		            int arr[] = new int[n];
+		            	
+		            error = 0;
+		            int i = 0;
+		            
+		            //Enter data
+		            do {
+		            	//1.2
+		            	try {
+		            		System.out.print("Enter element at index "+i+" :");
+			                s1 = sc.next() ;
+			                int p = Integer.parseInt(s1);
+			                arr[i]=p;
+			                i++;
+		            	}
+		            	catch (NumberFormatException e) {
+			            	System.out.println("Input is not a number. Try again\n") ;
+						}
+		            	
+		            }while(i<n);
+		            
+		            // Perform division
+		           
+		            int cnd = 1; 
+		            do {
+		            	//1.3
+		            	System.out.println("Peform Division\n");
+		            	try {
+		            		System.out.print("Enter index of Numerator : ");
+		            		int in = sc.nextInt();
+		            		System.out.print("Enter index of Denominator : ");
+		            		int id = sc.nextInt();
+		            		
+		            		int num = arr[in];
+							int den = arr[id];
 							
-						}
-						catch(ArrayIndexOutOfBoundsException e) {
-							System.out.println("Index is Out of Bounds! Try again\n") ;
-						}
-						
-					}
-					catch (NumberFormatException e) {
-	                    System.out.println("Input is not a number. Please try again\n") ;
-	                }
-					
-					break;
-				case 2:
-					//2
-					try {
-						System.out.print("Enter index : ");
-						int in = sc.nextInt();
-						//2.1
-						try {
-							int num = arr[in].num1;
-							int den = arr[in].num1;
-							//2.1.1.
 							try {
 								double ans = num/den;
 								System.out.println("Division : "+num+"/"+den+" = "+ans);
 							}
-							catch(ArithmeticException e){
-		                        System.out.println("Divison not possible! Denominator is zero");
+							catch (ArithmeticException e) {
+								System.out.println("Divison not possible! Denominator is zero\n");
 							}
-							
+		            	}
+		            	catch (ArrayIndexOutOfBoundsException e) {
+		            		System.out.println("Index is Out of Bounds! Try again\n");
 						}
-						catch(NullPointerException e){
-							System.out.println("Please set the data for this index first!");
-						}	
-					}
-					catch(ArrayIndexOutOfBoundsException e) {
-						System.out.println("Index is Out of Bounds! Try again\n") ;
-					}
-					break;	
-				default:
-					System.out.println("Invalid Choice !");
-			}
-							
-			System.out.print("Press 1 to continue : ");
-			cnd = sc.nextInt();
-
-		}	
+		            	System.out.print("Press 1 to continue :");
+		            	cnd = sc.nextInt();
+					} while (cnd==1);
+				}
+				catch (NumberFormatException e) {
+					error=1;
+					System.out.println("Size is not a number. Try again\n");
+				}
+				catch (NegativeArraySizeException e) {
+					error=1;
+					System.out.println("Size must be positive. Try again\n");
+				}
+			}while(error==1);
+			sc.close();
+		}
 		
-	}
-
-}
+	}	
+	
+	//OUTPUT
+	
+	//Enter the size of the array : -1
+	//Size must be positive. Try again
+	//
+	//Enter the size of the array : sdfg
+	//Size is not a number. Try again
+	//
+	//Enter the size of the array : 6
+	//Enter element at index 0 :10
+	//Enter element at index 1 :4
+	//Enter element at index 2 :5
+	//Enter element at index 3 :8
+	//Enter element at index 4 :3
+	//Enter element at index 5 :qwer
+	//Input is not a number. Try again
+	//
+	//Enter element at index 5 :12
+	//Peform Division
+	//
+	//Enter index of Numerator : 10
+	//Enter index of Denominator : 10
+	//Index is Out of Bounds! Try again
+	//
+	//Press 1 to continue :1
+	//Peform Division
+	//
+	//Enter index of Numerator : 3
+	//Enter index of Denominator : 1
+	//Division : 8/4 = 2.0
+	//Press 1 to continue :0
+	
